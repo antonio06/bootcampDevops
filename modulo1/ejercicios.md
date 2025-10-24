@@ -54,7 +54,7 @@ mv foo/dummy/file2.txt foo/empty
 
 ## 4. Crea un script de bash que descargue el contenido de una página web a un fichero y busque en dicho fichero una palabra dada como parámetro al invocar el script
 
-Pasos
+Pasos:
 
 - Creo el fichero con el comando `touch scriptEjercicio4.sh`
 
