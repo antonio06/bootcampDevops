@@ -48,8 +48,34 @@ mv foo/dummy/file2.txt foo/empty
 
 - Miro si tiene permisos de ejecución: `ls -l scriptEjercicio3.sh`
 
-- Por último le doy permisos de ejecución al fichero `chmod +x scriptEjercicio3.sh`
+- Le doy permisos de ejecución al fichero `chmod +x scriptEjercicio3.sh`
 
-Ejecuto el comando `./scriptEjercicio3.sh "Este texto no es el de por defecto :D"`
+- Por último ejecuto el comando `./scriptEjercicio3.sh "Este texto no es el de por defecto :D"`
 
 ## 4. Crea un script de bash que descargue el contenido de una página web a un fichero y busque en dicho fichero una palabra dada como parámetro al invocar el script
+
+Pasos
+
+- Creo el fichero con el comando `touch scriptEjercicio4.sh`
+
+- Con vim edito el fichero
+
+```bash
+#!/bin/bash
+
+url="https://www.bonviveur.es/recetas/patatas-aplastadas-al-horno"
+
+curl -s "$url" > resultPage.txt
+
+count=$(grep -o -i -E "patata(s)?" resultPage.txt | wc -l)
+
+if [ "$count" -gt 0 ]; then
+        echo "La palabra 'patata' aparece $count veces"
+else
+        echo "No se ha encontrado la palabra 'patata'"
+fi
+```
+
+- Miro si tiene permisos de ejecución: `ls -l scriptEjercicio4.sh`
+
+- Le doy permisos de ejecución al fichero `chmod +x scriptEjercicio4.sh`
