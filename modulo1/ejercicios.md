@@ -79,3 +79,5 @@ fi
 - Miro si tiene permisos de ejecución: `ls -l scriptEjercicio4.sh`
 
 - Le doy permisos de ejecución al fichero `chmod +x scriptEjercicio4.sh`
+
+- Por último ejecuto el comando `./scriptEjercicio4.sh
