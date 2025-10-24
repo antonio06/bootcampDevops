@@ -80,4 +80,4 @@ fi
 
 - Le doy permisos de ejecución al fichero `chmod +x scriptEjercicio4.sh`
 
-- Por último ejecuto el comando `./scriptEjercicio4.sh
+- Por último ejecuto el comando `./scriptEjercicio4.sh`
