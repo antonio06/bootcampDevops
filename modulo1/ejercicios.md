@@ -8,13 +8,12 @@ mkdir -p foo/{dummy,empty}
 touch foo/dummy/file{1,2}.txt
 
 echo "Me encanta la bash!!" 1> foo/dummy/file1.txt
-echo "Me encanta la bash!!" 1> foo/dummy/file2.txt
 ```
 
 ## 2. Mediante comandos de bash, vuelca el contenido de file1.txt a file2.txt y mueve file2.txt a la carpeta empty
 
 ```bash
-cp foo/dummy/file1.txt foo/dummy/file2.txt
+cat foo/dummy/file1.txt foo/dummy/file2.txt
 
 mv foo/dummy/file2.txt foo/empty
 ```
@@ -37,11 +36,12 @@ text="${1:-Que me gusta la bash!!!}"
 
 while [ $numberFile -lt 2 ]; do
         touch "foo/dummy/file${numberFile}.txt"
-        echo "$text" > "foo/dummy/file${numberFile}.txt"
         ((numberFile++))
 done
 
-cp foo/dummy/file1.txt foo/dummy/file2.txt
+echo "$text" > "foo/dummy/file1.txt"
+
+cat foo/dummy/file1.txt foo/dummy/file2.txt
 
 mv foo/dummy/file2.txt foo/empty
 ```
