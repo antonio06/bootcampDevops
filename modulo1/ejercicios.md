@@ -137,4 +137,4 @@ rm resultPage.txt
 
 - Le doy permisos de ejecución al fichero `chmod +x scriptEjercicio5.sh`
 
-- Por último ejecuto el comando `./scriptEjercicio5.sh patata`
+- Por último ejecuto el comando `./scriptEjercicio5.sh https://bonviveur.com/es/recetas/patatas-aplastadas-al-horno patata`
