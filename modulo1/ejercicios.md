@@ -34,7 +34,7 @@ mkdir -p foo/{dummy,empty}
 numberFile=1
 text="${1:-Que me gusta la bash!!!}"
 
-while [ $numberFile -lt 2 ]; do
+while [ $numberFile -lt 3 ]; do
         touch "foo/dummy/file${numberFile}.txt"
         ((numberFile++))
 done
@@ -63,21 +63,78 @@ Pasos:
 ```bash
 #!/bin/bash
 
-url="https://www.bonviveur.es/recetas/patatas-aplastadas-al-horno"
+url="https://bonviveur.com/es/recetas/patatas-aplastadas-al-horno"
 
-curl -s "$url" > resultPage.txt
+word=${1}
 
-count=$(grep -o -i -E "patata(s)?" resultPage.txt | wc -l)
+if [ -z "$word" ]; then
+    echo "No se ha informado la palabra a buscar"
+    exit 1
+fi
+
+curl -s "$url" | sed 's/<[^>]*>//g' > resultPage.txt
+
+count=$(grep -o -i -E "${word}(s)?" resultPage.txt | wc -l)
 
 if [ "$count" -gt 0 ]; then
-        echo "La palabra 'patata' aparece $count veces"
+    echo "La palabra '$word' aparece $count veces"
+    echo "Número de la primera línea donde aparece: " grep -i -n -m 1 -E "${word}(s)?"  resultPage.txt | cut -d: -f1 " veces"
 else
-        echo "No se ha encontrado la palabra 'patata'"
+    echo "No se ha encontrado la palabra '$word'"
 fi
+
+# Limpiar archivo temporal
+rm resultPage.txt
 ```
 
 - Miro si tiene permisos de ejecución: `ls -l scriptEjercicio4.sh`
 
 - Le doy permisos de ejecución al fichero `chmod +x scriptEjercicio4.sh`
 
-- Por último ejecuto el comando `./scriptEjercicio4.sh`
+- Por último ejecuto el comando `./scriptEjercicio4.sh patata`
+
+## 5. OPCIONAL - Modifica el ejercicio anterior de forma que la URL de la página web se pase por parámetro y también verifique que la llamada al script sea correcta
+
+Pasos:
+
+- Creo el fichero con el comando `touch scriptEjercicio5.sh`
+
+- Con vim edito el fichero
+
+```bash
+#!/bin/bash
+
+url=${1}
+word=${2}
+
+if [ -z "$word" ]; then
+    echo "No se ha informado la palabra a buscar"
+    exit 1
+fi
+
+if [ -z "$url" ]; then
+    echo "No se ha informado de la url"
+    exit 1
+fi
+
+curl -s "$url" | sed 's/<[^>]*>//g' > resultPage.txt
+
+count=$(grep -o -i -E "${word}(s)?" resultPage.txt | wc -l)
+
+if [ "$count" -gt 0 ]; then
+    echo "La palabra '$word' aparece $count $( [ "$count" -eq 1 ] && echo "vez" || echo "veces" )"
+
+    first_line=$(grep -i -n -m 1 -E "${word}(s)?" resultPage.txt | cut -d: -f1)
+    echo "Número de la primera línea donde aparece: $first_line"
+else
+    echo "No se ha encontrado la palabra '$word'"
+fi
+
+rm resultPage.txt
+```
+
+- Miro si tiene permisos de ejecución: `ls -l scriptEjercicio5.sh`
+
+- Le doy permisos de ejecución al fichero `chmod +x scriptEjercicio5.sh`
+
+- Por último ejecuto el comando `./scriptEjercicio5.sh patata`
