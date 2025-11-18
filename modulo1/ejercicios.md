@@ -13,7 +13,7 @@ echo "Me encanta la bash!!" 1> foo/dummy/file1.txt
 ## 2. Mediante comandos de bash, vuelca el contenido de file1.txt a file2.txt y mueve file2.txt a la carpeta empty
 
 ```bash
-cat foo/dummy/file1.txt foo/dummy/file2.txt > output.txt
+cat foo/dummy/file1.txt > foo/dummy/file2.txt
 
 mv foo/dummy/file2.txt foo/empty
 ```
@@ -41,7 +41,7 @@ done
 
 echo "$text" > "foo/dummy/file1.txt"
 
-cat foo/dummy/file1.txt foo/dummy/file2.txt > output.txt
+cat foo/dummy/file1.txt > foo/dummy/file2.txt
 
 mv foo/dummy/file2.txt foo/empty
 ```
@@ -106,7 +106,7 @@ Pasos:
 url=${1}
 word=${2}
 
-if [[ -z "$word" ] && [ -z "$url" ]]; then
+if [[ $# -ne 2 ]]; then
     echo "Se necesitan únicamente dos parámetros para ejecutar este script"
     exit 1
 fi
