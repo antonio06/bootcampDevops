@@ -13,7 +13,7 @@ echo "Me encanta la bash!!" 1> foo/dummy/file1.txt
 ## 2. Mediante comandos de bash, vuelca el contenido de file1.txt a file2.txt y mueve file2.txt a la carpeta empty
 
 ```bash
-cat foo/dummy/file1.txt foo/dummy/file2.txt
+cat foo/dummy/file1.txt foo/dummy/file2.txt > output.txt
 
 mv foo/dummy/file2.txt foo/empty
 ```
@@ -41,7 +41,7 @@ done
 
 echo "$text" > "foo/dummy/file1.txt"
 
-cat foo/dummy/file1.txt foo/dummy/file2.txt
+cat foo/dummy/file1.txt foo/dummy/file2.txt > output.txt
 
 mv foo/dummy/file2.txt foo/empty
 ```
@@ -83,7 +83,6 @@ else
     echo "No se ha encontrado la palabra '$word'"
 fi
 
-# Limpiar archivo temporal
 rm resultPage.txt
 ```
 
@@ -107,13 +106,8 @@ Pasos:
 url=${1}
 word=${2}
 
-if [ -z "$word" ]; then
-    echo "No se ha informado la palabra a buscar"
-    exit 1
-fi
-
-if [ -z "$url" ]; then
-    echo "No se ha informado de la url"
+if [[ -z "$word" ] && [ -z "$url" ]]; then
+    echo "Se necesitan únicamente dos parámetros para ejecutar este script"
     exit 1
 fi
 
