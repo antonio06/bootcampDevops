@@ -1,0 +1,44 @@
+services:
+  mongo-db:
+    image: mongo:8.2.1
+    volumes:
+      - mongo-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    ports:
+      - "27017:27017"
+    networks:
+      - lemoncode-network
+  calendar-api:
+    image: calendar-api:v1
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/usr/src/app
+    environment:
+      - DATABASE_URL=mongodb://admin:password@mongo-db:27017
+    networks:
+      - lemoncode-network
+    command: npm start
+  calendar-front:
+    image: calendar-front:v1
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    depends_on:
+      - calendar-api
+    volumes:
+      - ./frontend:/usr/src/app
+    ports:
+      - "3000:3000"
+    networks:
+      - lemoncode-network
+    command: npm start
+volumes:
+  mongo-data:
+networks:
+    lemoncode-network:
