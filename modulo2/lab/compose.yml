@@ -23,6 +23,8 @@ services:
       - DATABASE_URL=mongodb://admin:password@mongo-db:27017
     networks:
       - lemoncode-network
+    depends_on:
+      - mongo-db
     command: npm start
   calendar-front:
     image: calendar-front:v1
